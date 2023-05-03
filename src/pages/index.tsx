@@ -1,4 +1,6 @@
-import { playerDataProps } from "@/types";
+import Me from "@/components/Match/Me/me";
+import Participants from "@/components/Match/Participants/participants";
+import { playerDataProps, Player, MeInfoProps } from "@/types";
 import axios, { AxiosHeaderValue } from "axios";
 
 export async function getServerSideProps() {
@@ -73,11 +75,6 @@ interface HomeProps {
   testMatch: any;
 }
 
-interface Player {
-  puuid: string;
-  icon: number;
-}
-
 export default function Home({ playerData, testMatch }: HomeProps) {
   const { id, puuid, name, profileIconId, revisionDate, summonerLevel } =
     playerData;
@@ -86,18 +83,34 @@ export default function Home({ playerData, testMatch }: HomeProps) {
 
   testMatch.info.participants.map((x: any) =>
     participants.push({
-      puuid: x.summonerName,
-      icon: x.profileIcon,
+      playerName: x.summonerName,
+      championName: x.championName,
     })
   );
 
+  const me = testMatch.info.participants.filter((x: any) => x.puuid === puuid);
+
+  const meInfo = {
+    championName: me.championName,
+    kills: me.kills,
+    deaths: me.deaths,
+    assists: me.assists,
+    summoner1: me.summoner1,
+    summoner2: me.summoner2,
+    item0: me.item0,
+    item1: me.item1,
+    item2: me.item2,
+    item3: me.item3,
+    item4: me.item4,
+    item5: me.item5,
+    item6: me.item6,
+    runes: me.perks.styles
+  };
+
   return (
-    <div className="text-red-400">
-      <ul>
-        {participants.map((p: Player) => (
-          <li key={p.puuid}>{`${p.puuid} and ${p.icon}`}</li>
-        ))}
-      </ul>
+    <div className="">
+      <Me meInfo={meInfo} />
+      <Participants participants={participants} />
     </div>
   );
 }

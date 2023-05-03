@@ -18,7 +18,7 @@ const Participants = ({ participants }: ParticipantProps) => {
             alt={x.championName}
             width={24}
             height={24}
-            className="rounded-full"
+            className="rounded-sm"
           />
           {x.playerName}
         </div>
@@ -30,7 +30,7 @@ const Participants = ({ participants }: ParticipantProps) => {
             alt={x.championName}
             width={24}
             height={24}
-            className="rounded-full"
+            className="rounded-sm"
           />
           {x.playerName}
         </div>
