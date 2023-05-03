@@ -1,5 +1,4 @@
-import Me from "@/components/Match/Me/me";
-import Participants from "@/components/Match/Participants/participants";
+import { Me, Participants } from "@/components/Match";
 import { playerDataProps, Player, MeInfoProps } from "@/types";
 import axios, { AxiosHeaderValue } from "axios";
 
@@ -88,15 +87,17 @@ export default function Home({ playerData, testMatch }: HomeProps) {
     })
   );
 
-  const me = testMatch.info.participants.filter((x: any) => x.puuid === puuid);
+  const me = testMatch.info.participants.filter(
+    (x: any) => x.puuid === puuid
+  )[0];
 
   const meInfo = {
     championName: me.championName,
     kills: me.kills,
     deaths: me.deaths,
     assists: me.assists,
-    summoner1: me.summoner1,
-    summoner2: me.summoner2,
+    summoner1: me.summoner1Id,
+    summoner2: me.summoner2Id,
     item0: me.item0,
     item1: me.item1,
     item2: me.item2,
@@ -104,13 +105,17 @@ export default function Home({ playerData, testMatch }: HomeProps) {
     item4: me.item4,
     item5: me.item5,
     item6: me.item6,
-    runes: me.perks.styles
+    runes: me.perks.styles,
   };
 
   return (
-    <div className="">
-      <Me meInfo={meInfo} />
-      <Participants participants={participants} />
+    <div>
+      <div className="flex justify-center">
+        <>
+          <Me meInfo={meInfo} />
+          <Participants participants={participants} />
+        </>
+      </div>
     </div>
   );
 }

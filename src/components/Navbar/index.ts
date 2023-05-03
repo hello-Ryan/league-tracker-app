@@ -1,5 +1,2 @@
-const Components = () => {
-    
-}
-
-export default Components;
+export { default } from "./Navbar";
+export * from "./Navbar";
