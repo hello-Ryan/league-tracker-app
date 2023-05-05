@@ -8,9 +8,7 @@ const port = 4400;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
-var cors = require('cors');
-app.use(cors());    
- 
+
 app.prepare().then(() => {
   createServer(async (req, res) => {
     try {

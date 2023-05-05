@@ -1,5 +1,5 @@
 export interface Player {
-    playerName: string;
+    summonerName: string;
     championName: string;
   }
 
