@@ -22,7 +22,7 @@ const ItemContainer = ({
   const items = [item0, item1, item2, item3, item4, item5];
 
   return (
-    <div className="grid grid-flow-row grid-cols-7 grid-rows-1">
+    <div className="grid grid-flow-row grid-cols-7 grid-rows-1 gap-0.5">
       {items.map((item, index) =>
         item !== 0 ? (
           <div key={index}>
@@ -38,13 +38,15 @@ const ItemContainer = ({
           <div key={index} className="bg-gray-400 rounded-md opacity-50"></div>
         )
       )}
-      <Image
-        src={`/dragontail-13.9.1/13.9.1/img/item/${trinket}.png`}
-        alt={trinket.toString()}
-        width={24}
-        height={24}
-        className="rounded-full"
-      />
+      {trinket !== 0 ? (
+        <Image
+          src={`/dragontail-13.9.1/13.9.1/img/item/${trinket}.png`}
+          alt={trinket.toString()}
+          width={24}
+          height={24}
+          className="rounded-full"
+        />
+      ) : null}
     </div>
   );
 };

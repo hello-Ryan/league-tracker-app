@@ -25,6 +25,7 @@ const Me = ({ meInfo }: MeProps) => {
     trinket,
     runes,
   } = meInfo;
+
   const spellNames = Object.keys(sumsData);
   const dSum = spellNames.find(
     (x: any) => sumsData[x].key === summoner1.toString()
@@ -33,17 +34,21 @@ const Me = ({ meInfo }: MeProps) => {
     (x: any) => sumsData[x].key === summoner2.toString()
   );
 
-  const keyStoneTree = runesData.find((x: any) => x.id === runes[0].style)
-    ?.slots[0].runes[0].icon;
+  const keyStoneTree = runesData
+    .find((x: any) => x.id === runes[0].style)
+    ?.slots[0].runes.find(
+      (keystone) => keystone.id === runes[0].selections[0].perk
+    )?.icon;
+
   const secondaryTree = runesData.find(
     (x: any) => x.id === runes[1].style
   )?.icon;
 
   return (
-    <div id="wrapper" className="flex flex-row">
+    <div id="wrapper" className="flex flex-row px-4">
       <div id="left" className="flex flex-col justify-center">
-        <div id="me champ stats" className="flex flex-row items-center">
-          <div id="champion">
+        <div id="me champ1 stats" className="flex flex-row items-center">
+          <div id="champion" className="pr-1">
             <Image
               src={`/dragontail-13.9.1/13.9.1/img/champion/${championName}.png`}
               alt={championName}
@@ -52,7 +57,7 @@ const Me = ({ meInfo }: MeProps) => {
               className="rounded-full"
             />
           </div>
-          <div id="sums" className="flex flex-col">
+          <div id="sums" className="flex flex-col gap-y-1">
             <Image
               src={`/dragontail-13.9.1/13.9.1/img/spell/${dSum}.png`}
               alt={dSum!}
@@ -68,7 +73,7 @@ const Me = ({ meInfo }: MeProps) => {
               className="rounded-md"
             />
           </div>
-          <div id="runes">
+          <div id="runes" className="px-1">
             <Image
               src={`/dragontail-13.9.1/img/${keyStoneTree}`}
               alt={championName}
@@ -91,20 +96,24 @@ const Me = ({ meInfo }: MeProps) => {
             <span className="text-lg text-gray-500"> / </span>
             <span className="text-lg">{assists}</span>
 
-            <div className="text-xs flex justify-center">{`${Math.round(
-              (kills + assists) / deaths
-            )} KDA`}</div>
+            <div id="kda" className="text-xs flex justify-center">
+              {deaths === 0 && kills + assists > 0
+                ? "Perfect KDA"
+                : `${Math.round((kills + assists) / deaths)} KDA`}
+            </div>
           </div>
         </div>
-        <ItemContainer
-          trinket={trinket}
-          item0={item0}
-          item1={item1}
-          item2={item2}
-          item3={item3}
-          item4={item4}
-          item5={item5}
-        />
+        <div className="py-2">
+          <ItemContainer
+            trinket={trinket}
+            item0={item0}
+            item1={item1}
+            item2={item2}
+            item3={item3}
+            item4={item4}
+            item5={item5}
+          />
+        </div>
       </div>
       <div id="right" className="flex flex-col"></div>
     </div>

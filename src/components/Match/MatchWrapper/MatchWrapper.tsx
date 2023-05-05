@@ -8,7 +8,13 @@ export interface MatchWrapperProps {
 
 const MatchWrapper = ({ win, children, className }: MatchWrapperProps) => {
   return (
-    <div className={`${!win ? "bg-red-900" : "bg-blue-400 "} ` + className + ' p-4 rounded-sm w-4/12'}>
+    <div
+      className={
+        `${win ? "bg-blue-900" : "bg-rose-900 "} ` +
+        className +
+        " p-4 rounded-sm w-06"
+      }
+    >
       {children}
     </div>
   );
