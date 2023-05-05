@@ -4,7 +4,9 @@
 
 Built using Node, NextJS and TailWindCSS.
 
-This is a side project that I'm working on that is using the [League of Legends API](https://developer.riotgames.com/). The design of the website will take inspiration from both [u.gg](https://u.gg/) and [op.gg](https://www.op.gg/).
+This is a side project that I'm working on that is using the [League of Legends API](https://developer.riotgames.com/) to track match history and champion winrates.
+
+ The design of the website will take inspiration from both [u.gg](https://u.gg/) and [op.gg](https://www.op.gg/).
 
 For Champion Icons, Runes, etc I will be using [Data Dragon](https://riot-api-libraries.readthedocs.io/en/latest/ddragon.html) as my source.
 
