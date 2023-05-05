@@ -5,10 +5,8 @@ import {
   Navbar,
   PageContent,
 } from "@/components";
-import { playerDataProps, Player, MeInfoProps } from "@/types";
-import { match } from "assert";
-import axios, { AxiosHeaderValue, all } from "axios";
-import { useEffect, useState } from "react";
+import { playerDataProps } from "@/types";
+import axios from "axios";
 
 export async function getServerSideProps() {
   const requestHeaders = { headers: { "X-Riot-Token": process.env.API_KEY! } };
