@@ -16,6 +16,6 @@ export interface MeInfoProps {
   item3: number,
   item4: number,
   item5: number,
-  item6: number,
+  trinket: number,
   runes: any
 }

@@ -1,6 +1,8 @@
-import { Me, Participants } from "@/components/Match";
+import { MatchWrapper, Me, Participants } from "@/components/Match";
 import { playerDataProps, Player, MeInfoProps } from "@/types";
+import { match } from "assert";
 import axios, { AxiosHeaderValue } from "axios";
+import { useEffect, useState } from "react";
 
 export async function getServerSideProps() {
   const requestHeaders = { headers: { "X-Riot-Token": process.env.API_KEY! } };
@@ -10,112 +12,96 @@ export async function getServerSideProps() {
       "https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/ShortMaker",
       requestHeaders
     )
-    .then((x) => x.data)
-    .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
-    });
+    .then((x) => x.data);
 
   const matches: string[] = await axios
     .get(
       `https://sea.api.riotgames.com/lol/match/v5/matches/by-puuid/${playerData.puuid}/ids`,
       requestHeaders
     )
-    .then((x) => x.data)
-    .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
-    });
-  const testMatch = await axios
-    .get(
-      `https://sea.api.riotgames.com/lol/match/v5/matches/${matches[0]}`,
-      requestHeaders
-    )
-    .then((x) => x.data)
-    .catch(function (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
-    });
+    .then((x) => x.data);
+
+  const endpoints = matches.map(
+    (id) => `https://sea.api.riotgames.com/lol/match/v5/matches/${id}`
+  );
+
   return {
     props: {
       playerData: playerData,
-      matches: matches,
-      testMatch: testMatch,
+      matches: endpoints,
     },
   };
 }
 
 interface HomeProps {
   playerData: playerDataProps;
-  testMatch: any;
+  matches: string[];
 }
 
-export default function Home({ playerData, testMatch }: HomeProps) {
+export default function Home({ playerData, matches }: HomeProps) {
   const { id, puuid, name, profileIconId, revisionDate, summonerLevel } =
     playerData;
+    const requestHeaders = { headers: { "X-Riot-Token": process.env.API_KEY! } };
 
   const participants: Player[] = [];
 
-  testMatch.info.participants.map((x: any) =>
-    participants.push({
-      playerName: x.summonerName,
-      championName: x.championName,
-    })
-  );
+  const [myMatches, setMyMatches] = useState([])
 
-  const me = testMatch.info.participants.filter(
-    (x: any) => x.puuid === puuid
-  )[0];
+  console.log(matches)
 
-  const meInfo = {
-    championName: me.championName,
-    kills: me.kills,
-    deaths: me.deaths,
-    assists: me.assists,
-    summoner1: me.summoner1Id,
-    summoner2: me.summoner2Id,
-    item0: me.item0,
-    item1: me.item1,
-    item2: me.item2,
-    item3: me.item3,
-    item4: me.item4,
-    item5: me.item5,
-    item6: me.item6,
-    runes: me.perks.styles,
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      for (const url of matches) {
+        const response = await axios.get(url,requestHeaders);
+        const newMyMatches = [...myMatches, response.data];
+        setMyMatches(newMyMatches);
+        await new Promise(resolve => setTimeout(resolve, 500)); // Wait for 0.5 seconds
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+
+  // testMatch.info.participants.map((x: any) =>
+  //   participants.push({
+  //     playerName: x.summonerName,
+  //     championName: x.championName,
+  //   })
+  // );
+
+  // const me = testMatch.info.participants.filter(
+  //   (x: any) => x.puuid === puuid
+  // )[0];
+
+  // const meInfo = {
+  //   championName: me.championName,
+  //   kills: me.kills,
+  //   deaths: me.deaths,
+  //   assists: me.assists,
+  //   summoner1: me.summoner1Id,
+  //   summoner2: me.summoner2Id,
+  //   item0: me.item0,
+  //   item1: me.item1,
+  //   item2: me.item2,
+  //   item3: me.item3,
+  //   item4: me.item4,
+  //   item5: me.item5,
+  //   trinket: me.item6,
+  //   runes: me.perks.styles,
+  // };
 
   return (
+    // <div className="flex flex-row justify-center">
+    //   <MatchWrapper win={me.win} className="flex justify-center">
+    //     <>
+    //       <Me meInfo={meInfo} />
+    //       <Participants participants={participants} />
+    //     </>
+    //   </MatchWrapper>
+    // </div>
     <div>
-      <div className="flex justify-center">
-        <>
-          <Me meInfo={meInfo} />
-          <Participants participants={participants} />
-        </>
-      </div>
+      {myMatches.length}
     </div>
   );
 }

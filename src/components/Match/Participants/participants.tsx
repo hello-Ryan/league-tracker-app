@@ -10,26 +10,26 @@ const Participants = ({ participants }: ParticipantProps) => {
   const redSide = participants.slice(5, 10);
 
   return (
-    <div className="grid grid-cols-2 gap-1 grid-rows-5 grid-flow-col">
+    <div className="grid grid-cols-2 gap-0.5 grid-rows-5 grid-flow-col">
       {blueSide.map((x: Player) => (
-        <div key={x.playerName} className="flex flex-row items-center">
+        <div key={x.playerName} className="flex flex-row items-center text-xs">
           <Image
             src={`/dragontail-13.9.1/13.9.1/img/champion/${x.championName}.png`}
             alt={x.championName}
-            width={24}
-            height={24}
+            width={16}
+            height={16}
             className="rounded-sm"
           />
           {x.playerName}
         </div>
       ))}
       {redSide.map((x: Player) => (
-        <div key={x.playerName} className="flex flex-row items-center">
+        <div key={x.playerName} className="flex flex-row items-center text-xs">
           <Image
             src={`/dragontail-13.9.1/13.9.1/img/champion/${x.championName}.png`}
             alt={x.championName}
-            width={24}
-            height={24}
+            width={16}
+            height={16}
             className="rounded-sm"
           />
           {x.playerName}
