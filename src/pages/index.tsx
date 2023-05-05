@@ -1,4 +1,10 @@
-import { MatchWrapper, Me, Participants } from "@/components/Match";
+import {
+  MatchWrapper,
+  Me,
+  Participants,
+  Navbar,
+  PageContent,
+} from "@/components";
 import { playerDataProps, Player, MeInfoProps } from "@/types";
 import { match } from "assert";
 import axios, { AxiosHeaderValue, all } from "axios";
@@ -25,19 +31,14 @@ export async function getServerSideProps() {
     (id) => `https://sea.api.riotgames.com/lol/match/v5/matches/${id}`
   );
 
-  const test = endpoints.splice(0, 6);
+  const test = endpoints.splice(0, 15);
   const a = await axios.all(test.map((a) => axios.get(a, requestHeaders)));
   const b = a.map((x) => x.data);
-
-  const testMatch = await axios
-    .get(endpoints[0], requestHeaders)
-    .then((x) => x.data);
 
   return {
     props: {
       playerData: playerData,
       matches: b,
-      testMatch: testMatch,
     },
   };
 }
@@ -45,10 +46,9 @@ export async function getServerSideProps() {
 interface HomeProps {
   playerData: playerDataProps;
   matches: any;
-  testMatch: any;
 }
 
-export default function Home({ playerData, testMatch, matches }: HomeProps) {
+export default function Home({ playerData, matches }: HomeProps) {
   const { id, puuid, name, profileIconId, revisionDate, summonerLevel } =
     playerData;
 
@@ -76,15 +76,20 @@ export default function Home({ playerData, testMatch, matches }: HomeProps) {
   const participants = matches.map((match: any) => match.info.participants);
 
   return (
-      <div className="flex flex-col items-center gap-3">
-        {allMatchData.map((data: any, index: number) => (
-          <MatchWrapper win={data.win} key={index}>
-            <div className="flex justify-center">
-              <Me meInfo={data} />
-              <Participants participants={participants[index]} />
-            </div>
-          </MatchWrapper>
-        ))}
-      </div>
+    <>
+      <Navbar />
+      <PageContent>
+        <div className="flex flex-col items-center gap-3">
+          {allMatchData.map((data: any, index: number) => (
+            <MatchWrapper win={data.win} key={index}>
+              <div className="flex justify-center">
+                <Me meInfo={data} />
+                <Participants participants={participants[index]} />
+              </div>
+            </MatchWrapper>
+          ))}
+        </div>
+      </PageContent>
+    </>
   );
 }
