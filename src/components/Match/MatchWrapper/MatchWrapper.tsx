@@ -12,7 +12,7 @@ const MatchWrapper = ({ win, children, className }: MatchWrapperProps) => {
       className={
         `${win ? "bg-blue-900" : "bg-rose-900 "} ` +
         className +
-        " p-4 rounded-sm w-06"
+        " p-4 rounded-sm w-[30rem]"
       }
     >
       {children}

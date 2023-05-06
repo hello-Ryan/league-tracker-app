@@ -80,7 +80,7 @@ export default function Home({ playerData, matches }: HomeProps) {
         <div className="flex flex-col items-center gap-3">
           {allMatchData.map((data: any, index: number) => (
             <MatchWrapper win={data.win} key={index}>
-              <div className="flex justify-center">
+              <div className="flex justify-between">
                 <Me meInfo={data} />
                 <Participants participants={participants[index]} />
               </div>
