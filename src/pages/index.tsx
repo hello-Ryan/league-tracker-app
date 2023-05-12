@@ -2,7 +2,7 @@ import {
   MatchWrapper,
   Me,
   Participants,
-  Navbar,
+  TopNavbar,
   PageContent,
 } from "@/components";
 import { playerDataProps } from "@/types";
@@ -31,7 +31,9 @@ export async function getServerSideProps() {
 
   const test = endpoints.splice(0, 15);
   const a = await axios.all(test.map((a) => axios.get(a, requestHeaders)));
-  const b = a.map((x) => x.data);
+  const b = a.map((x) => x.data)
+
+  const { puuid } = playerData
 
   return {
     props: {
@@ -75,7 +77,7 @@ export default function Home({ playerData, matches }: HomeProps) {
 
   return (
     <>
-      <Navbar />
+      <TopNavbar />
       <PageContent>
         <div className="flex flex-col items-center gap-3">
           {allMatchData.map((data: any, index: number) => (

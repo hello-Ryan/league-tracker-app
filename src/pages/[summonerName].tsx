@@ -1,16 +1,13 @@
-export async function getStaticProps(context) {
-  const summonerName = context.params.summonerName;
+export async function getStaticProps() {
   return {
     props: {
-      context: summonerName,
+      context: "ShortMaker",
     },
   };
 }
-export async function getStaticPaths(context) {
-  const summonerName = context.params.summonerName;
-
+export async function getStaticPaths() {
   return {
-    paths: [{ params: { summonerName: summonerName } }],
+    paths: [{ params: { summonerName: "ShortMaker" } }],
     fallback: true,
   };
 }
@@ -18,7 +15,6 @@ export async function getStaticPaths(context) {
 interface summonerNamePageProps {}
 
 const summonerNamePage = (props: { context: any }) => {
-  console.log(props.context);
 };
 
 export default summonerNamePage;

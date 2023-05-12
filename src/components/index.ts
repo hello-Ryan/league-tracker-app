@@ -1,7 +1,8 @@
 export * from './Match'
-export * from './Navbar'
+export * from './Navbar/TopNavbar'
 export * from './PageContent'
+export * from './Navbar'
 
-export { default as Navbar } from "./Navbar";
 export { default as PageContent } from "./PageContent";
+
 
