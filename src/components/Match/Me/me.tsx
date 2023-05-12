@@ -27,6 +27,7 @@ const Me = ({ meInfo }: MeProps) => {
   } = meInfo;
 
   const spellNames = Object.keys(sumsData);
+  
   const dSum = spellNames.find(
     (x: any) => sumsData[x].key === summoner1.toString()
   );

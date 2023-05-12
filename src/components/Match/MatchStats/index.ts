@@ -1,2 +1,2 @@
-export {default} from './MatchStats';
-export * from './MatchStats';
+export { default } from './matchStats'
+export * from "./matchStats";
