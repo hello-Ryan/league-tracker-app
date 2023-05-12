@@ -2,8 +2,8 @@ import {
   MatchWrapper,
   Me,
   Participants,
-  TopNavbar,
   PageContent,
+  Heading,
 } from "@/components";
 import { playerDataProps } from "@/types";
 import axios from "axios";
@@ -78,12 +78,9 @@ interface HomeProps {
 }
 
 export default function Home({ playerData, matches, participants }: HomeProps) {
-  const { id, puuid, name, profileIconId, revisionDate, summonerLevel } =
-    playerData;
-
   return (
     <>
-      <TopNavbar />
+      <Heading data={playerData}/>
       <PageContent>
         <div className="flex flex-col items-center gap-3">
           {matches.map((data: any, index: number) => (

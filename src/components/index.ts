@@ -1,5 +1,5 @@
 export * from "./Match";
-export * from "./Navbar/TopNavbar";
+export * from "./Navbar/Heading";
 export * from "./PageContent";
 export * from "./Navbar";
 

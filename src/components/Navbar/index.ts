@@ -1,5 +1,5 @@
 export { default as SideNavbar } from "./SideNavbar";
-export { default as TopNavbar } from "./TopNavbar";
+export { default as Heading } from "./Heading";
 
 export * from "./SideNavbar";
-export * from "./TopNavbar";
+export * from "./Heading";
