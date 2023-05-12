@@ -10,7 +10,7 @@ const Participants = ({ participants }: ParticipantProps) => {
   const redSide = participants.slice(5, 10);
 
   return (
-    <div className="grid grid-cols-2 gap-0.5 grid-rows-5 grid-flow-col">
+    <div className="grid grid-cols-2 gap-1 grid-rows-5 grid-flow-col w-5/12">
       {blueSide.map((x: Player) => (
         <div
           key={x.summonerName}
@@ -24,14 +24,14 @@ const Participants = ({ participants }: ParticipantProps) => {
             className="rounded-sm"
           />
           {x.summonerName.length > 10
-            ? `${x.summonerName.substring(0, 10)}...`
+            ? `${x.summonerName.substring(0, 7)}...`
             : x.summonerName}
         </div>
       ))}
       {redSide.map((x: Player) => (
         <div
           key={x.summonerName}
-          className="flex flex-row items-center text-xs"
+          className="flex flex-row items-center text-xs pl-1"
         >
           <Image
             src={`/dragontail-13.9.1/13.9.1/img/champion/${x.championName}.png`}

@@ -6,4 +6,3 @@ export interface playerDataProps {
   revisionDate: number;
   summonerLevel: number;
 }
-

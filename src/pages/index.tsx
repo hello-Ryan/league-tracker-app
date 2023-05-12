@@ -29,30 +29,15 @@ export async function getServerSideProps() {
     (id) => `https://sea.api.riotgames.com/lol/match/v5/matches/${id}`
   );
 
+  const { puuid } = playerData;
+
   const test = endpoints.splice(0, 15);
-  const a = await axios.all(test.map((a) => axios.get(a, requestHeaders)));
-  const b = a.map((x) => x.data)
+  const matchHistory = await axios.all(
+    test.map((a) => axios.get(a, requestHeaders))
+  );
+  const matchHistoryData = matchHistory.map((x) => x.data);
 
-  const { puuid } = playerData
-
-  return {
-    props: {
-      playerData: playerData,
-      matches: b,
-    },
-  };
-}
-
-interface HomeProps {
-  playerData: playerDataProps;
-  matches: any;
-}
-
-export default function Home({ playerData, matches }: HomeProps) {
-  const { id, puuid, name, profileIconId, revisionDate, summonerLevel } =
-    playerData;
-
-  const allMatchData = matches
+  const matchReturn = matchHistoryData
     .map((match: any) => match.info.participants)
     .map((x: any) => x.find((p: any) => p.puuid === puuid))
     .map((me: any) => ({
@@ -73,14 +58,35 @@ export default function Home({ playerData, matches }: HomeProps) {
       win: me.win,
     }));
 
-  const participants = matches.map((match: any) => match.info.participants);
+  const participants = matchHistoryData.map(
+    (match: any) => match.info.participants
+  );
+
+  return {
+    props: {
+      playerData: playerData,
+      matches: matchReturn,
+      participants: participants,
+    },
+  };
+}
+
+interface HomeProps {
+  playerData: playerDataProps;
+  matches: any;
+  participants: any;
+}
+
+export default function Home({ playerData, matches, participants }: HomeProps) {
+  const { id, puuid, name, profileIconId, revisionDate, summonerLevel } =
+    playerData;
 
   return (
     <>
       <TopNavbar />
       <PageContent>
         <div className="flex flex-col items-center gap-3">
-          {allMatchData.map((data: any, index: number) => (
+          {matches.map((data: any, index: number) => (
             <MatchWrapper win={data.win} key={index}>
               <div className="flex justify-between">
                 <Me meInfo={data} />

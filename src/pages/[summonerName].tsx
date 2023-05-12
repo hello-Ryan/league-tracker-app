@@ -14,7 +14,6 @@ export async function getStaticPaths() {
 
 interface summonerNamePageProps {}
 
-const summonerNamePage = (props: { context: any }) => {
-};
+const summonerNamePage = (props: { context: any }) => {};
 
 export default summonerNamePage;

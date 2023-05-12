@@ -1,2 +1,2 @@
-export * from './PageContent'
-export {default} from'./PageContent';
+export * from "./PageContent";
+export { default } from "./PageContent";
