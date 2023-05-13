@@ -27,12 +27,14 @@ const Me = ({ meInfo }: MeProps) => {
   } = meInfo;
 
   const spellNames = Object.keys(sumsData);
+
+  const test: any = sumsData
   
   const dSum = spellNames.find(
-    (x: any) => sumsData[x].key === summoner1.toString()
+    (x: any) => test[x].key === summoner1.toString()
   );
   const fSum = spellNames.find(
-    (x: any) => sumsData[x].key === summoner2.toString()
+    (x: any) => test[x].key === summoner2.toString()
   );
 
   const keyStoneTree = runesData
