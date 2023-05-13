@@ -1,2 +1,2 @@
-export { default } from './Me';
-export * from './Me';
+export { default } from './MeComp';
+export * from './MeComp';
